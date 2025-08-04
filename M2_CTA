@@ -1,0 +1,73 @@
+//============================================================================
+// Name        : CSC450.cpp
+// Author      : Raishawn Jones
+// Version     : 1
+// Copyright   : Your copyright notice
+// Description : Module 3 Critical Thinking Assignment
+//============================================================================
+
+
+#include <iostream> // For the needed input and output operations
+#include <limits> // For numeric limits
+using namespace std;
+
+int main() {
+    // Initialize all the pointers to nullptr
+    int* p1 = nullptr; // Pointer to first int
+    int* p2 = nullptr; // Pointer to second int
+    int* p3 = nullptr; // Pointer to third int
+
+    try {
+        // Allocate memory
+        p1 = new int; // Allocate memory for three integers
+        p2 = new int;
+        p3 = new int;
+
+        // Get user input with input validation
+        cout << "Enter first integer: "; // Prompt for the first integer
+        while (!(cin >> *p1)) {
+            cout << "Invalid input. Please enter an integer: "; // Prompt for valid input
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input buffer
+        }
+
+        cout << "Enter second integer: "; // Prompt for the second integer
+        while (!(cin >> *p2)) {
+            cout << "Invalid input. Please enter an integer: "; // Prompt for valid input
+            cin.clear(); // Clear the error state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input buffer
+        }
+
+        cout << "Enter third integer: "; // Prompt for third integer
+        while (!(cin >> *p3)) {
+            cout << "Invalid input. Please enter an integer: "; // Prompt for valid input
+            cin.clear();   // Clear the error state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input buffer
+        }
+
+        // Display results
+        cout << "\nValues Entered:\n"; // Display a header
+        cout << "p1 points to value: " << *p1 << " at address: " << p1 << endl;    // Display value and address of p1
+        cout << "p2 points to value: " << *p2 << " at address: " << p2 << endl;    //.................................
+        cout << "p3 points to value: " << *p3 << " at address: " << p3 << endl;    //......................
+    }
+    catch (const bad_alloc& e) {
+        cout << "Memory allocation failed: " << e.what() << endl; // Handle memory allocation failure
+        // Clean up any allocated memory to prevent leaks
+        delete p1;
+        delete p2;
+        delete p3;
+        // Avoids dangling pointers
+        p1 = p2 = p3 = nullptr;
+        return 1; // Return error code
+    }
+
+    // Clean up memory
+    delete p1; // Free allocated memory
+    delete p2; // "......................
+    delete p3; // >>>>>>>>>>>>>>>>>>>>>>>
+    // Avoid dangling pointers
+    p1 = p2 = p3 = nullptr; // Set pointers to nullptr
+
+    return 0; // Return 0 to for successful execution
+}
