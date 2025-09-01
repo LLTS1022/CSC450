@@ -1,0 +1,32 @@
+//============================================================================
+// Name        : CSC450.cpp
+// Author      : Raishawn Jones
+// Version     : v1
+// Copyright   : Your copyright notice
+// Description : Module 7 Critical Thinking Assignment
+//============================================================================
+#include <iostream>
+#include <thread>
+#include <chrono>
+
+void count_up_to_20() {
+    for (int i = 0; i <= 20; ++i) {
+        std::cout << "↑ " << i << '\n';
+        // std::this_thread::sleep_for(std::chrono::milliseconds(40));
+    }
+}
+
+void count_down_to_0() {
+    for (int i = 20; i >= 0; --i) {
+        std::cout << "↓ " << i << '\n';
+        // std::this_thread::sleep_for(std::chrono::milliseconds(40));
+    }
+}
+
+int main() {
+    std::thread t1(count_up_to_20);
+    t1.join();                 // Wait until the first thread reaches 20
+    std::thread t2(count_down_to_0);
+    t2.join();                 // Wait until the countdown is done
+    return 0;
+}
